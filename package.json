@@ -1,0 +1,32 @@
+{
+  "name": "paxaro",
+  "version": "0.0.1",
+  "description": "A vista de páxaro.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bertez/paxaro.git"
+  },
+  "keywords": [
+    "twitter",
+    "bot",
+    "image",
+    "satellite",
+    "space"
+  ],
+  "author": "Berto Yáñez <berto@ber.to>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bertez/paxaro/issues"
+  },
+  "homepage": "https://github.com/bertez/paxaro#readme",
+  "dependencies": {
+    "gm": "^1.21.1",
+    "moment": "^2.11.2",
+    "request": "^2.69.0",
+    "twit": "^2.2.2"
+  }
+}
