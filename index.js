@@ -1,6 +1,7 @@
 'use strict';
 
 const path = require('path');
+
 const Feeder = require('./lib/feeder');
 const video = require('./lib/video');
 
@@ -10,5 +11,8 @@ const satelliteFeed = new Feeder(new Date('February 21, 2016 9:24:00'), outputFo
 
 satelliteFeed.getSeries()
     .then(() => video('images/%d.jpg', 'current.mp4'))
-    .then(output => console.log(output))
-    .catch(error => new Error(error));
+    .then(video => console.log(video))
+    //tweet video
+    .catch(error => {
+        process.stderr.write(error.message);
+    });
