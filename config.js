@@ -9,5 +9,6 @@ module.exports = {
         access_token: '',
         access_token_secret: ''
     },
-    imagesPath: path.join(__dirname, 'images')
+    imagesPath: path.join(__dirname, 'images'),
+    font: path.join(__dirname, 'font/OpenSans-ExtraBold.ttf')
 };
