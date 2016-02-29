@@ -18,7 +18,7 @@ const T = new Tweeter(config.twitterAPI);
 
 const bot = () => {
 
-    const start = moment('2016-02-29T21:32:21.196+0100');
+    const start = moment();
     const midPhase = start.set('hour', start.hour() - 1).set('minute', 0);
 
     const sun = suncalc.getTimes(midPhase, 42.66, -8.11);
