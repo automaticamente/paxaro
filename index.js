@@ -18,26 +18,35 @@ const T = new Tweeter(config.twitterAPI);
 
 const bot = () => {
 
-    const now = moment('2015-02-25T08:32:21.196+0100');
-    const sun = suncalc.getTimes(now, 42.66, -8.11);
+    const start = moment('2016-02-29T21:32:21.196+0100');
+    const midPhase = start.set('hour', start.hour() - 1).set('minute', 0);
 
-    const dusk = moment(sun.dusk);
+    const sun = suncalc.getTimes(midPhase, 42.66, -8.11);
+
     const dawn = moment(sun.dawn);
+    const dusk = moment(sun.dusk);
 
-    if(now > dawn && now < dusk) {
-        console.log('é polo dia');
-    } else {
-        console.log('é pola noite');
+    let tweetText = 'As últimas 2 horas de Galicia vista dende o espazo';
+
+    if(midPhase > dawn && midPhase < dusk) {
+        //ok, let's go
+        if(midPhase.subtract(1, 'hour') < dawn) {
+            tweetText = 'Bos dias! xa é un novo dia en Vila Pingüín!';
+        }
+
+        if(midPhase.add(2, 'hour') > dusk) {
+            tweetText = 'Estase facendo de noite, non haberá máis imaxes ata mañá pola mañá';
+        }
     }
 
     // const satelliteFeed = new Feeder(new Date('February 24, 2016 13:24:00'), config.imagesPath, 24, config);
-    const satelliteFeed = new Feeder(new Date(), config.imagesPath, 24, config);
+    const satelliteFeed = new Feeder(moment(), config.imagesPath, 24, config);
 
     satelliteFeed.getSeries()
         .then(() => video(config.imagesPath + '/%d.jpg', path.join(__dirname, 'current.mp4')))
         .then(video => {
             satelliteFeed.clean();
-            return T.tweetVideo('A última hora de Galicia a vista de páxaro espacial', video);
+            return T.tweetVideo(tweetText, video);
         })
         .then(id => process.stdout.write(id))
         .catch(error => {
