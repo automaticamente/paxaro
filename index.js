@@ -18,23 +18,30 @@ const T = new Tweeter(config.twitterAPI);
 
 const bot = () => {
 
-    const start = moment();
-    const midPhase = start.set('hour', start.hour() - 1).set('minute', 0);
+    const start = moment({
+        year: 2016,
+        month: 1,
+        day: 29,
+        hour: 20,
+        minute: 5
+    });
 
-    const sun = suncalc.getTimes(midPhase, 42.66, -8.11);
+    const midPhase = start.set('hour', start.hour() - 1);
 
-    const dawn = moment(sun.dawn);
-    const dusk = moment(sun.dusk);
+    const sun = suncalc.getTimes(new Date(), 42.66, -8.11);
+
+    const sunrise = moment(sun.sunrise);
+    const sunset = moment(sun.sunset);
 
     let tweetText = 'As últimas 2 horas de Galicia vista dende o espazo';
 
-    if (midPhase > dawn && midPhase < dusk) {
+    if (midPhase > sunrise && midPhase < sunset) {
 
-        if (midPhase.subtract(1, 'hour') < dawn) {
+        if (midPhase.subtract(1, 'hour') < sunrise) {
             tweetText = 'Bos dias! xa é un novo dia en Vila Pingüín!';
         }
 
-        if (midPhase.add(2, 'hour') > dusk) {
+        if (midPhase.add(2, 'hour') > sunset) {
             tweetText = 'Estase facendo de noite, non haberá máis imaxes ata mañá pola mañá';
         }
 
