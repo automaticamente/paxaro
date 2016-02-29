@@ -18,13 +18,15 @@ const T = new Tweeter(config.twitterAPI);
 
 const bot = () => {
 
-    const start = moment({
-        year: 2016,
-        month: 1,
-        day: 29,
-        hour: 20,
-        minute: 5
-    });
+    // const start = moment({
+    //     year: 2016,
+    //     month: 1,
+    //     day: 29,
+    //     hour: 20,
+    //     minute: 5
+    // });
+
+   const start = moment();
 
     const midPhase = start.set('hour', start.hour() - 1);
 
