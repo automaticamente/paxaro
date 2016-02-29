@@ -28,30 +28,30 @@ const bot = () => {
 
     let tweetText = 'As últimas 2 horas de Galicia vista dende o espazo';
 
-    if(midPhase > dawn && midPhase < dusk) {
-        //ok, let's go
-        if(midPhase.subtract(1, 'hour') < dawn) {
+    if (midPhase > dawn && midPhase < dusk) {
+
+        if (midPhase.subtract(1, 'hour') < dawn) {
             tweetText = 'Bos dias! xa é un novo dia en Vila Pingüín!';
         }
 
-        if(midPhase.add(2, 'hour') > dusk) {
+        if (midPhase.add(2, 'hour') > dusk) {
             tweetText = 'Estase facendo de noite, non haberá máis imaxes ata mañá pola mañá';
         }
+
+        const satelliteFeed = new Feeder(moment(), config.imagesPath, 24, config);
+
+        satelliteFeed.getSeries()
+            .then(() => video(config.imagesPath + '/%d.jpg', path.join(__dirname, 'current.mp4')))
+            .then(video => {
+                satelliteFeed.clean();
+                return T.tweetVideo(tweetText, video);
+            })
+            .then(id => process.stdout.write(id))
+            .catch(error => {
+                process.stderr.write(error.message);
+            });
     }
 
-    // const satelliteFeed = new Feeder(new Date('February 24, 2016 13:24:00'), config.imagesPath, 24, config);
-    const satelliteFeed = new Feeder(moment(), config.imagesPath, 24, config);
-
-    satelliteFeed.getSeries()
-        .then(() => video(config.imagesPath + '/%d.jpg', path.join(__dirname, 'current.mp4')))
-        .then(video => {
-            satelliteFeed.clean();
-            return T.tweetVideo(tweetText, video);
-        })
-        .then(id => process.stdout.write(id))
-        .catch(error => {
-            process.stderr.write(error.message);
-        });
 };
 
 bot();
