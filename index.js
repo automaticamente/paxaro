@@ -26,9 +26,9 @@ const bot = () => {
     //     minute: 5
     // });
 
-   const start = moment();
+    const start = moment();
 
-    const midPhase = start.set('hour', start.hour() - 1);
+    const midPhase = start.set('hour', start.hour() - 1).set('minute', 0);
 
     const sun = suncalc.getTimes(new Date(), 42.66, -8.11);
 
