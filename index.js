@@ -18,19 +18,19 @@ const T = new Tweeter(config.twitterAPI);
 
 const bot = () => {
 
-    // const start = moment({
-    //     year: 2016,
-    //     month: 1,
-    //     day: 29,
-    //     hour: 20,
-    //     minute: 5
-    // });
-
     const start = moment();
 
-    const midPhase = start.set('hour', start.hour() - 1).set('minute', 0);
+    // const start = moment({
+    //     year: 2016,
+    //     month: 2,
+    //     day: 2,
+    //     hour: 12,
+    //     minute: 15
+    // });
 
-    const sun = suncalc.getTimes(new Date(), 42.66, -8.11);
+    const sun = suncalc.getTimes(start.toDate(), 42.66, -8.11);
+
+    const midPhase = start.set('hour', start.hour() - 1).set('minute', 0);
 
     const sunrise = moment(sun.sunrise);
     const sunset = moment(sun.sunset);
@@ -46,6 +46,7 @@ const bot = () => {
         if (midPhase.add(2, 'hour') > sunset) {
             tweetText = 'Estase facendo de noite, non haberá máis imaxes ata mañá pola mañá';
         }
+
 
         const satelliteFeed = new Feeder(moment(), config.imagesPath, 24, config);
 
