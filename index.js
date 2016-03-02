@@ -40,13 +40,12 @@ const bot = () => {
     if (midPhase > sunrise && midPhase < sunset) {
 
         if (midPhase.subtract(1, 'hour') < sunrise) {
-            tweetText = 'Bos dias! xa é un novo dia en Vila Pingüín!';
+            tweetText = 'Bos días! xa é un novo día en Vila Pingüín!';
         }
 
         if (midPhase.add(2, 'hour') > sunset) {
             tweetText = 'Estase facendo de noite, non haberá máis imaxes ata mañá pola mañá';
         }
-
 
         const satelliteFeed = new Feeder(moment(), config.imagesPath, 24, config);
 
